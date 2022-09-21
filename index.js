@@ -45,15 +45,15 @@ ExpressApp.post('/CadImgColaborador', async (req, res) => {
     var extensaoArquivo;
     var newpath;
     var oldpath
-    extensaoArquivo = files.file.originalFilename.split('.')[1];
-      oldpath = files.file.filepath;
+    extensaoArquivo = files.toUpload.originalFilename.split('.')[1];
+      oldpath = files.toUpload.filepath;
   
-      newpath = path.join(__dirname, 'arquivos', Math.random()+'.'+extensaoArquivo);
+      newpath = path.join(__dirname, 'arquivos/colaboradores', files.toUpload.originalFilename);
     
   
       fs.renameSync(oldpath, newpath);
 
-     
+     res.sendStatus(200)
     })
 
 })
