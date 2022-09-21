@@ -41,7 +41,7 @@ ExpressApp.post('/CadImgColaborador', async (req, res) => {
     form.parse(req, async (err, fields, files) => {
     //     console.log(fields)
     // console.log(req.body)
-    console.log(files)
+   
     var extensaoArquivo;
     var newpath;
     var oldpath
