@@ -9,6 +9,20 @@ const io = new Server(server);
 const fs = require("fs");
 const port = 2828;
 const sharp = require("sharp");
+const mysql = require('promise-mysql');
+
+const connection = mysql.createConnection({
+  host: '144.22.225.253',
+  user: 'aplicacao',
+  port: "3306",
+  password: 'conline@2510A',
+  database: 'SIRIUS',
+  charset: "utf8mb4"
+});
+
+function getConnection() {
+  return connection;
+}
 
 ExpressApp.use(express.urlencoded({extended: true}));
 ExpressApp.use(express.json());
@@ -57,7 +71,24 @@ ExpressApp.post('/CadImgColaborador', async (req, res) => {
     })
 
 })
+ExpressApp.get('/consultaColab', async (req, res) => {
+  var id_head = req.query.id;
+  console.log(id_head)
 
+  const conn = await getConnection();
+  var sql = `SELECT * FROM colaboradores WHERE id_colab_head = ${id_head} LIMIT 1`
+
+  conn.query(sql, function(err2, results){
+    if(results.length > 0){
+      res.sendFile(path.join(__dirname, 'arquivos/colaboradores', results[0].id_colaboradores+'.webp'));
+    }else{
+      res.sendFile('https://w7.pngwing.com/pngs/419/473/png-transparent-computer-icons-user-profile-login-user-heroes-sphere-black-thumbnail.png');
+      
+    }
+    
+  })
+})
+  // res.send('ok')
 
 server.listen(port, () => {
   
