@@ -82,7 +82,7 @@ ExpressApp.get('/consultaColab', async (req, res) => {
     if(results.length > 0){
       res.sendFile(path.join(__dirname, 'arquivos/colaboradores', results[0].id_colaboradores+'.webp'));
     }else{
-      res.sendFile('https://w7.pngwing.com/pngs/419/473/png-transparent-computer-icons-user-profile-login-user-heroes-sphere-black-thumbnail.png');
+      res.send('erro')
       
     }
     
