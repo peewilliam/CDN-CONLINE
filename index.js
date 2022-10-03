@@ -103,18 +103,21 @@ io.on("connection", (socket) => {
 
     console.log('nova conexão')
 
-    socket.on('att_tabela', function(msg) {
-      console.log('tabela atualizado', msg)
-      socket.emit('att_tabela', msg);
     
-    });
-    
-    socket.on('parametros', function(param) {
-      console.log('novo parametro', param)
-      socket.emit(param.adress, param.param);
-      
-    });
 
+});
+
+
+io.on('att_tabela', function(msg) {
+  console.log('tabela atualizado', msg)
+  io.emit('att_tabela', msg);
+
+});
+
+io.on('parametros', function(param) {
+  console.log('novo parametro', param)
+  io.emit(param.adress, param.param);
+  
 });
 
 
