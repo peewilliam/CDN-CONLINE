@@ -99,22 +99,25 @@ ExpressApp.get('/consultaColab', async (req, res) => {
   //   io.emit('att_tabela', 'tabela_controleSenhas');
   // }, 1000);
 
-  io.on("connection", (socket) => {
+io.on("connection", (socket) => {
 
     console.log('nova conexão')
 
     socket.on('att_tabela', function(msg) {
       console.log('tabela atualizado', msg)
-      io.emit('att_tabela', msg);
-
+      socket.emit('att_tabela', msg);
+    
     });
-
+    
     socket.on('parametros', function(param) {
       console.log('novo parametro', param)
-      io.emit(param.adress, param.param);
+      socket.emit(param.adress, param.param);
       
     });
+
 });
+
+
   
   
 
