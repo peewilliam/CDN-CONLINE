@@ -6,6 +6,9 @@ const formidable = require("formidable");
 const server = http.createServer(ExpressApp);
 const { Server } = require("socket.io");
 const io = new Server(server);
+
+
+
 const fs = require("fs");
 const port = 2828;
 const sharp = require("sharp");
@@ -90,9 +93,31 @@ ExpressApp.get('/consultaColab', async (req, res) => {
 })
   // res.send('ok')
 
+  
+
+  // setInterval(() => {
+  //   io.emit('att_tabela', 'tabela_controleSenhas');
+  // }, 1000);
+
+  io.on("connection", (socket) => {
+
+    socket.on('att_tabela', function(msg) {
+
+      io.emit('att_tabela', msg);
+
+    });
+
+    socket.on('parametros', function(param) {
+
+      io.emit(param.adress, param.param);
+      
+    });
+});
+  
+  
+
 server.listen(port, () => {
   
     console.log(`Servidor backend executado: http://localhost:${port}`);
-    
-    
+ 
   });
