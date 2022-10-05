@@ -91,6 +91,46 @@ ExpressApp.get('/consultaColab', async (req, res) => {
     
   })
 })
+
+ExpressApp.post('/CadImgAssinatura', async (req, res) => {
+  const form = new formidable.IncomingForm();
+  form.parse(req, async (err, fields, files) => {
+  //     console.log(fields)
+  // console.log(req.body)
+ 
+  var extensaoArquivo;
+  var newpath;
+  var oldpath
+  extensaoArquivo = files.toUpload.originalFilename.split('.')[1];
+    oldpath = files.toUpload.filepath;
+
+    newpath = path.join(__dirname, 'arquivos/assinaturas', files.toUpload.originalFilename);
+  
+
+    fs.renameSync(oldpath, newpath);
+
+   res.sendStatus(200)
+  })
+
+})
+
+ExpressApp.get('/assinatura', async (req, res) => {
+  var ref_ass = req.query.ref;
+ 
+
+  const conn = await getConnection();
+  var sql = `SELECT * FROM colaboradores WHERE ref_ass = ${ref_ass} LIMIT 1`
+
+  conn.query(sql, function(err2, results){
+    if(results.length > 0){
+      res.sendFile(path.join(__dirname, 'arquivos/assinaturas', results[0].id_colaboradores+'.webp'));
+    }else{
+      res.send('erro')
+      
+    }
+    
+  })
+})
   // res.send('ok')
 
   
