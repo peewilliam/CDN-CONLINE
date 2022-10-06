@@ -106,7 +106,7 @@ ExpressApp.post('/CadImgAssinatura', async (req, res) => {
 
     newpath = path.join(__dirname, 'arquivos/assinaturas', files.toUpload.originalFilename);
   
-
+console.log(newpath)
     fs.renameSync(oldpath, newpath);
 
    res.sendStatus(200)
