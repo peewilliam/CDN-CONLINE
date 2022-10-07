@@ -123,6 +123,8 @@ ExpressApp.get('/assinatura', async (req, res) => {
     res.sendFile(path.join(__dirname, 'arquivos/assinaturas', 'GRUPOS.webp'));
   }else if(ref_ass == 'AVISOS'){
     res.sendFile(path.join(__dirname, 'arquivos/assinaturas', 'AVISOS.webp'));
+  }else if(ref_ass == 'SIRIUS'){
+    res.sendFile(path.join(__dirname, 'arquivos/assinaturas', 'SIRIUS.webp'));
   }else{
     const conn = await getConnection();
     var sql = `SELECT * FROM colaboradores WHERE ref_ass = '${ref_ass}' LIMIT 1`
