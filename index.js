@@ -97,7 +97,7 @@ ExpressApp.post('/CadImgAssinatura', async (req, res) => {
   form.parse(req, async (err, fields, files) => {
   //     console.log(fields)
   // console.log(req.body)
- 
+
   var extensaoArquivo;
   var newpath;
   var oldpath
@@ -106,7 +106,7 @@ ExpressApp.post('/CadImgAssinatura', async (req, res) => {
 
     newpath = path.join(__dirname, 'arquivos/assinaturas', files.toUpload.originalFilename);
   
-console.log(newpath)
+
     fs.renameSync(oldpath, newpath);
 
    res.sendStatus(200)
@@ -117,19 +117,28 @@ console.log(newpath)
 ExpressApp.get('/assinatura', async (req, res) => {
   var ref_ass = req.query.ref;
  
-
-  const conn = await getConnection();
-  var sql = `SELECT * FROM colaboradores WHERE ref_ass = '${ref_ass}' LIMIT 1`
-
-  conn.query(sql, function(err2, results){
-    if(results.length > 0){
-      res.sendFile(path.join(__dirname, 'arquivos/assinaturas', results[0].id_colaboradores+'.webp'));
-    }else{
-      res.send('erro')
+  if(ref_ass == 'LOGO'){
+    res.sendFile(path.join(__dirname, 'arquivos/assinaturas', 'LOGO.webp'));
+  }else if(ref_ass == 'GRUPOS'){
+    res.sendFile(path.join(__dirname, 'arquivos/assinaturas', 'GRUPOS.webp'));
+  }else if(ref_ass == 'AVISOS'){
+    res.sendFile(path.join(__dirname, 'arquivos/assinaturas', 'AVISOS.webp'));
+  }else{
+    const conn = await getConnection();
+    var sql = `SELECT * FROM colaboradores WHERE ref_ass = '${ref_ass}' LIMIT 1`
+  
+    conn.query(sql, function(err2, results){
+      if(results.length > 0){
+        res.sendFile(path.join(__dirname, 'arquivos/assinaturas', results[0].id_colaboradores+'.webp'));
+      }else{
+        res.send('erro')
+        
+      }
       
-    }
-    
-  })
+    })
+  }
+
+  
 })
   // res.send('ok')
 
