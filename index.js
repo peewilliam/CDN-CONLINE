@@ -119,7 +119,7 @@ ExpressApp.get('/assinatura', async (req, res) => {
  
 
   const conn = await getConnection();
-  var sql = `SELECT * FROM colaboradores WHERE ref_ass = ${ref_ass} LIMIT 1`
+  var sql = `SELECT * FROM colaboradores WHERE ref_ass = '${ref_ass}' LIMIT 1`
 
   conn.query(sql, function(err2, results){
     if(results.length > 0){
