@@ -191,6 +191,7 @@ io.on("connection", async (socket) => {
     
     socket.on('parametros', async function(param) {
       console.log('novo parametro', param)
+      console.log(param.adress, param.param)
       await io.emit(param.adress, param.param);
       
     });
