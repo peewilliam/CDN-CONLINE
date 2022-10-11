@@ -56,7 +56,7 @@ async function compressImage(file, local) {
  ExpressApp.post('/CadWallpapper', async (req, res) => {
     const form = new formidable.IncomingForm();
     form.parse(req, async (err, fields, files) => {
-        console.log(files)
+       
     // console.log(req.body)
    
     var extensaoArquivo;
