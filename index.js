@@ -69,7 +69,7 @@ async function compressImage(file, local) {
     
   
       fs.renameSync(oldpath, newpath);
-
+      await io.emit('attWallpapper', true);
      res.sendStatus(200)
     })
 
@@ -188,6 +188,8 @@ io.on("connection", async (socket) => {
       await io.emit('att_tabela', msg);
     
     });
+
+   
     
     socket.on('parametros', async function(param) {
       console.log('novo parametro', param)
