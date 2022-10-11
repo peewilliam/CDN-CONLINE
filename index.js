@@ -53,6 +53,34 @@ async function compressImage(file, local) {
     }
   }
 
+ ExpressApp.post('/CadWallpapper', async (req, res) => {
+    const form = new formidable.IncomingForm();
+    form.parse(req, async (err, fields, files) => {
+    //     console.log(fields)
+    // console.log(req.body)
+   
+    var extensaoArquivo;
+    var newpath;
+    var oldpath
+    extensaoArquivo = files.toUpload.originalFilename.split('.')[1];
+      oldpath = files.toUpload.filepath;
+  
+      newpath = path.join(__dirname, 'arquivos/Wallpapper', 'wallpapper.webp');
+    
+  
+      fs.renameSync(oldpath, newpath);
+
+     res.sendStatus(200)
+    })
+
+})
+
+ExpressApp.get('/Wallpapper', async (req, res) => {
+  
+res.sendFile(path.join(__dirname, 'arquivos/Wallpapper', 'wallpapper.webp'));
+   
+})
+
 ExpressApp.post('/CadImgColaborador', async (req, res) => {
     const form = new formidable.IncomingForm();
     form.parse(req, async (err, fields, files) => {
@@ -74,6 +102,7 @@ ExpressApp.post('/CadImgColaborador', async (req, res) => {
     })
 
 })
+
 ExpressApp.get('/consultaColab', async (req, res) => {
   var id_head = req.query.id;
   console.log(id_head)
