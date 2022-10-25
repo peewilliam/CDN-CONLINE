@@ -103,6 +103,45 @@ ExpressApp.post('/CadImgColaborador', async (req, res) => {
 
 })
 
+ExpressApp.post('/UploadArquivosChamados', async (req, res) => {
+  const form = new formidable.IncomingForm();
+  form.parse(req, async (err, fields, files) => {
+
+ 
+  var extensaoArquivo;
+  var newpath;
+  var oldpath
+  extensaoArquivo = files.toUpload.originalFilename.split('.')[1];
+    oldpath = files.toUpload.filepath;
+
+    newpath = path.join(__dirname, 'arquivos/ArquivosChamados', files.toUpload.originalFilename);
+  
+
+    fs.renameSync(oldpath, newpath);
+
+   res.sendStatus(200)
+  })
+
+})
+
+ExpressApp.get('/ArquivosChamados', async (req, res) => {
+  var id_head = req.query.id;
+
+
+  // const conn = await getConnection();
+  // var sql = `SELECT * FROM colaboradores WHERE id_colab_head = ${id_head} LIMIT 1`
+
+  // conn.query(sql, function(err2, results){
+  //   if(results.length > 0){
+  //     res.sendFile(path.join(__dirname, 'arquivos/colaboradores', results[0].id_colaboradores+'.webp'));
+  //   }else{
+  //     res.send('erro')
+      
+  //   }
+    
+  // })
+})
+
 ExpressApp.get('/consultaColab', async (req, res) => {
   var id_head = req.query.id;
   console.log(id_head)
