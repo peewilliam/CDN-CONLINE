@@ -114,6 +114,7 @@ ExpressApp.post('/UploadArquivosChamados', async (req, res) => {
   extensaoArquivo = files.toUpload.originalFilename.split('.')[1];
     oldpath = files.toUpload.filepath;
 
+    
     newpath = path.join(__dirname, 'arquivos/ArquivosChamados', files.toUpload.originalFilename);
   
 
